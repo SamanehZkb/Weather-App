@@ -72,6 +72,13 @@ img {
   font-size: 15px;
   top: -35px;
 }
+.code {
+  display: block;
+  text-align: left;
+  font-family: cursive;
+  font-weight: 200;
+  font-size: 12px;
+}
 #Celsius {
   text-decoration: none;
 }
