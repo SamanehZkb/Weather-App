@@ -21,15 +21,7 @@ let months = [
   "Nov",
   "Dec",
 ];
-let now = new Date();
-let today = days[now.getDay()];
-let thisMonth = months[now.getMonth()];
-let Day = document.querySelector("#day");
-let time = document.querySelector("#time");
-let date = document.querySelector("#date");
-Day.innerHTML = today;
-time.innerHTML = `${now.getHours()} : ${now.getMinutes()}`;
-date.innerHTML = `${now.getDate()} ${thisMonth} ${now.getFullYear()}`;
+
 let city = document.querySelector("#title");
 let cityinput = document.querySelector("#search-input");
 
@@ -60,11 +52,23 @@ function showWeather(response) {
   sky.innerHTML = `${skymoodvalue}`;
   let skyimage = document.querySelector(".skyimage");
   let skyvalue = response.data.weather[0].icon;
-  console.log(skyimage);
   skyimage.setAttribute(
     `src`,
     `http://openweathermap.org/img/wn/${skyvalue}@2x.png`
   );
+  let now = new Date(response.data.dt * 1000);
+  let today = days[now.getDay()];
+  let thisMonth = months[now.getMonth()];
+  let Day = document.querySelector("#day");
+  let current = document.querySelector("#time");
+  let date = document.querySelector("#date");
+  Day.innerHTML = today;
+  let minute = now.getMinutes();
+  if (minute < 10) {
+    minute = `0 ${now.getMinutes()}`;
+  }
+  current.innerHTML = `${now.getHours()} : ${minute}`;
+  date.innerHTML = `${now.getDate()} ${thisMonth} ${now.getFullYear()}`;
 }
 
 function getPosition(position) {

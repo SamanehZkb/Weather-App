@@ -44,7 +44,7 @@ img {
   padding: 0;
   position: relative;
   top: -50px;
-  left: 120px;
+  left: 90px;
   text-align: left;
   font-size: 12px;
 }
@@ -74,10 +74,15 @@ img {
 }
 .code {
   display: block;
+  position: relative;
+  left: 40px;
   text-align: left;
   font-family: cursive;
   font-weight: 200;
   font-size: 12px;
+}
+.skymood {
+  text-transform: capitalize;
 }
 #Celsius {
   text-decoration: none;
