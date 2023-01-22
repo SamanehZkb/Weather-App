@@ -84,17 +84,12 @@ img {
 .skymood {
   text-transform: capitalize;
 }
-#Celsius {
+.active {
+  cursor: default;
   text-decoration: none;
+  color: inherit;
 }
-#Celsius:hover {
-  text-decoration: underline;
-  transition: ease-in;
-}
-#Fahrenheit {
+.active:hover {
   text-decoration: none;
-}
-#Fahrenheit:hover {
-  text-decoration: underline;
-  transition: ease-in;
+  color: inherit;
 }

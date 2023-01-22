@@ -33,30 +33,26 @@ function change(event) {
 
 function showWeather(response) {
   console.log(response);
-  cityinputvalue = response.data.name;
+  cityinputvalue = response.data.city;
   city.innerHTML = cityinputvalue;
-  let Temperature = document.querySelector("#degree");
-  let temp = Math.round(response.data.main.temp);
-  Temperature.innerHTML = temp;
-  let feels = document.querySelector(".feels");
-  feelslike = Math.round(response.data.main.feels_like);
+  CelsiusTempreture = Math.round(response.data.temperature.current);
+  Temperature.innerHTML = CelsiusTempreture;
+  feelslike = Math.round(response.data.temperature.feels_like);
   feels.innerHTML = `Feels like ${feelslike}°`;
   let humidity = document.querySelector(".humidity");
-  let hum = Math.round(response.data.main.humidity);
+  let hum = Math.round(response.data.temperature.humidity);
   humidity.innerHTML = `Humidity:  ${hum}%`;
   let wind = document.querySelector(".wind");
   let windvalue = Math.round(response.data.wind.speed);
   wind.innerHTML = `Wind:  ${windvalue} km/h`;
   let sky = document.querySelector(".skymood");
-  let skymoodvalue = response.data.weather[0].main;
+  let skymoodvalue = response.data.condition.description;
   sky.innerHTML = `${skymoodvalue}`;
   let skyimage = document.querySelector(".skyimage");
-  let skyvalue = response.data.weather[0].icon;
-  skyimage.setAttribute(
-    `src`,
-    `http://openweathermap.org/img/wn/${skyvalue}@2x.png`
-  );
-  let now = new Date(response.data.dt * 1000);
+  let skyvalue = response.data.condition.icon_url;
+  skyimage.setAttribute(`alt`, `${skymoodvalue}`);
+  skyimage.setAttribute(`src`, `${skyvalue}`);
+  let now = new Date(response.data.time * 1000);
   let today = days[now.getDay()];
   let thisMonth = months[now.getMonth()];
   let Day = document.querySelector("#day");
@@ -80,8 +76,8 @@ function getPosition(position) {
 }
 function search(nameinput) {
   cityinputvalue = `${nameinput}`;
-  let apiKey = "2980ff43226d67e53abfcdb6d457dcc8";
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityinputvalue}&appid=${apiKey}&units=metric`;
+  let apiKey = "o6e634db6050ata4f8132e3ce4047d3a";
+  let apiURL = `https://api.shecodes.io/weather/v1/current?query=${cityinputvalue}&key=${apiKey}&units=metric`;
   axios.get(apiURL).then(showWeather);
 }
 
@@ -100,19 +96,26 @@ form.addEventListener("submit", change);
 let Celsius = document.querySelector("#Celsius");
 let Fahrenheit = document.querySelector("#Fahrenheit");
 let Temperature = document.querySelector("#degree");
+let feels = document.querySelector(".feels");
+let CelsiusTempreture = null;
+let feelslike = null;
 
 search("Tehran");
 
-//function changeCelsius(event) {
-// event.preventDefault();
-// Temperature.innerHTML = `7`;
-// feels.innerHTML = `Feels like 6°`;
-//}
-//Celsius.addEventListener(`click`, changeCelsius);
+function changeCelsius(event) {
+  event.preventDefault();
+  Temperature.innerHTML = `${CelsiusTempreture}`;
+  feels.innerHTML = `Feels like ${feelslike}°`;
+  Fahrenheit.classList.remove("active");
+  Celsius.classList.add("active");
+}
+Celsius.addEventListener(`click`, changeCelsius);
 
-//function changeFahrenheit(event) {
-// event.preventDefault();
-//  Temperature.innerHTML = `45`;
-// feels.innerHTML = `Feels like 43°`;
-//}
-//Fahrenheit.addEventListener(`click`, changeFahrenheit);
+function changeFahrenheit(event) {
+  event.preventDefault();
+  Temperature.innerHTML = Math.round(CelsiusTempreture * 1.8 + 32);
+  feels.innerHTML = `Feels like ${Math.round(feelslike * 1.8 + 32)}°`;
+  Celsius.classList.remove("active");
+  Fahrenheit.classList.add("active");
+}
+Fahrenheit.addEventListener(`click`, changeFahrenheit);
