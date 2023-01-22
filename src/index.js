@@ -61,7 +61,7 @@ function showWeather(response) {
   Day.innerHTML = today;
   let minute = now.getMinutes();
   if (minute < 10) {
-    minute = `0 ${now.getMinutes()}`;
+    minute = `0${now.getMinutes()}`;
   }
   current.innerHTML = `${now.getHours()} : ${minute}`;
   date.innerHTML = `${now.getDate()} ${thisMonth} ${now.getFullYear()}`;
