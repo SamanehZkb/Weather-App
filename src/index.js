@@ -60,10 +60,14 @@ function showWeather(response) {
   let date = document.querySelector("#date");
   Day.innerHTML = today;
   let minute = now.getMinutes();
+  let hours = now.getHours();
   if (minute < 10) {
     minute = `0${now.getMinutes()}`;
   }
-  current.innerHTML = `${now.getHours()} : ${minute}`;
+  if (hours < 10) {
+    hours = `0${now.getHours()}`;
+  }
+  current.innerHTML = `${hours} : ${minute}`;
   date.innerHTML = `${now.getDate()} ${thisMonth} ${now.getFullYear()}`;
 }
 
