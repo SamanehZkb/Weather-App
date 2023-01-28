@@ -7,6 +7,7 @@ let days = [
   "Friday",
   "Saturday",
 ];
+let forcastdays = ["Sun", "Mon", "Tue", "Wed", "Thu"];
 let months = [
   "Jan",
   "Feb",
@@ -29,10 +30,10 @@ function change(event) {
   event.preventDefault();
   cityinputvalue = cityinput.value;
   search(cityinputvalue);
+  getForcast(cityinputvalue);
 }
 
 function showWeather(response) {
-  console.log(response);
   cityinputvalue = response.data.city;
   city.innerHTML = cityinputvalue;
   CelsiusTempreture = Math.round(response.data.temperature.current);
@@ -104,8 +105,6 @@ let feels = document.querySelector(".feels");
 let CelsiusTempreture = null;
 let feelslike = null;
 
-search("Tehran");
-
 function changeCelsius(event) {
   event.preventDefault();
   Temperature.innerHTML = `${CelsiusTempreture}`;
@@ -123,3 +122,54 @@ function changeFahrenheit(event) {
   Fahrenheit.classList.add("active");
 }
 Fahrenheit.addEventListener(`click`, changeFahrenheit);
+
+function displayforcast(response) {
+  forcastdays = response.data.daily;
+
+  let PredictedWeatherelement = document.querySelector("#predicted-weather");
+  let PredictedWeather = `<div class="row g-1">`;
+
+  forcastdays.slice(1, 6).forEach(function (i) {
+    let day = days[new Date(i.time * 1000).getDay()];
+    day = day.split(``, 3).join(``);
+
+    let img = i.condition.icon_url;
+    let skyvalue = i.condition.description;
+    let min = Math.round(i.temperature.minimum);
+    let max = Math.round(i.temperature.maximum);
+    PredictedWeather =
+      PredictedWeather +
+      `
+    <div class="col">
+                  <div
+                    class="card border border-dark day bg-transparent border-opacity-25 shadow-sm  mb-1 bg-body rounded"
+                  >
+                    <div class="card-body pt-0">
+                      <img
+                        src=${img}
+                        alt=${skyvalue}
+                        width="70px"
+                      />
+                      <div class="predicted-degree">
+                        <span class="max">${max}<sup>°</sup></span>
+                        <span class="min">${min}<sup>°</sup></span>
+                        <hr />
+                        ${day}
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+  });
+
+  PredictedWeather = PredictedWeather + `</div>`;
+  PredictedWeatherelement.innerHTML = PredictedWeather;
+}
+function getForcast(nameinput) {
+  cityinputvalue = `${nameinput}`;
+  let apiKey = "o6e634db6050ata4f8132e3ce4047d3a";
+  let apiURL = `https://api.shecodes.io/weather/v1/forecast?query=${cityinputvalue}&key=${apiKey}`;
+
+  axios.get(apiURL).then(displayforcast);
+}
+search("Tehran");
+getForcast("Tehran");

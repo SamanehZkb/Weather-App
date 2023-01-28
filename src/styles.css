@@ -41,7 +41,7 @@ img {
 .parent {
   display: flex;
   justify-content: center;
-  padding-left: 50px;
+  padding-left: 20px;
 }
 .feels,
 .humidity,
@@ -54,7 +54,9 @@ img {
   font-size: 12px;
 }
 .skyimage {
+  display: block;
   padding: 0;
+  margin: 0 auto;
 }
 .predicted-degree {
   margin-top: 20px;
@@ -68,6 +70,8 @@ img {
   line-height: 50px;
 }
 .date {
+  padding-right: 20px;
+  text-align: center;
   font-size: 25px;
   padding-top: 10px;
   font-weight: 600;
@@ -88,6 +92,8 @@ img {
 }
 .skymood {
   text-transform: capitalize;
+  position: relative;
+  top: -30px;
 }
 .active {
   cursor: default;
@@ -97,4 +103,8 @@ img {
 .active:hover {
   text-decoration: none;
   color: inherit;
+}
+.min {
+  font-size: 18px;
+  opacity: 0.6;
 }
