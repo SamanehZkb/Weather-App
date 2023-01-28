@@ -7,7 +7,7 @@ let days = [
   "Friday",
   "Saturday",
 ];
-let forcastdays = ["Sun", "Mon", "Tue", "Wed", "Thu"];
+
 let months = [
   "Jan",
   "Feb",
@@ -45,7 +45,7 @@ function showWeather(response) {
   humidity.innerHTML = `Humidity:  ${hum}%`;
   let wind = document.querySelector(".wind");
   let windvalue = Math.round(response.data.wind.speed);
-  wind.innerHTML = `Wind:  ${windvalue} km/h`;
+  wind.innerHTML = `Wind:  ${windvalue} m/h`;
   let sky = document.querySelector(".skymood");
   let skymoodvalue = response.data.condition.description;
   sky.innerHTML = `${skymoodvalue}`;
@@ -142,9 +142,9 @@ function displayforcast(response) {
       `
     <div class="col">
                   <div
-                    class="card border border-dark day bg-transparent border-opacity-25 shadow-sm  mb-1 bg-body rounded"
+                    class="card border border-dark day bg-transparent border-opacity-25 shadow-sm  bg-body rounded"
                   >
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-0 pb-1">
                       <img
                         src=${img}
                         alt=${skyvalue}
